@@ -2,9 +2,13 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { NavController } from '@ionic/angular';
 import { AlertController } from '@ionic/angular';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map } from 'rxjs/operators';
 import Swal from 'sweetalert2'
+import { map } from 'rxjs/operators';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/compat/firestore';
+
+
+
+
 
 
 @Injectable({
@@ -15,11 +19,12 @@ export class FirebaseService {
 
   constructor(public auth: AngularFireAuth,
               public navCtrl: NavController, 
-              public alertController: AlertController
+              public alertController: AlertController,
+              private firestore: AngularFirestore
               ) { }
 
    myDate = new Date();
-   cosasLindas: any[] = [];
+
 
   login(correo:any, password:any){
         this.auth.signInWithEmailAndPassword(correo,password).then((res) => {
@@ -80,6 +85,42 @@ export class FirebaseService {
           });
         }
       })
+    }
+
+
+    async guardarRegistro( puntaje: number,dificultad: any) {
+      this.myDate = new Date();
+
+      let data = {
+        usuario: localStorage.getItem('correo'),
+        fecha: this.myDate.toLocaleDateString() + " " + this.myDate.toLocaleTimeString(),
+        puntaje: puntaje,
+        dificultad: dificultad
+      }
+      
+      try {
+        const result = await this.firestore.collection("puntajes").add(data);
+        return result.id;
+      } catch (error) {
+        throw error;
+      }
+    }
+
+    async obtenerPuntajes() {
+      try {
+        return this.firestore.collection("puntajes", ref => ref.orderBy('puntaje', 'asc')).snapshotChanges().pipe(
+          map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data();
+              const id = a.payload.doc.id;
+              return Object.assign({}, data, { id });
+            });
+          })
+        );
+      } catch (error) {
+        console.error('Error al obtener las cosas lindas:', error);
+        throw error;
+      }
     }
     
   }

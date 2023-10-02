@@ -46,11 +46,21 @@
     }
   }
   
-  .game{
+  .game {
     background-image: url('/assets/images/background.png');
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center center;
+  }
+
+  ion-card-content{
+    background-color: transparent;
+  }
+
+  p{
+    font-family: "Comic";
+    color: black;
+    font-size: 18px;
   }
   
   .timer {

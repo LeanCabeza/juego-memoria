@@ -1,28 +1,39 @@
-<ion-content>
 
-  <ion-content>
+  <ion-fab *ngIf="!nivelSeleccionado && !mostrarPodio" vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="this.mostrarPodio = true" color="success" size="large">
+      <ion-icon name="podium-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-    <ion-fab *ngIf="!nivelSeleccionado && !mostrarPodio" vertical="top" horizontal="start" slot="fixed">
-      <ion-fab-button (click)="this.mostrarPodio = true" color="success" size="large">
-        <ion-icon name="podium-outline"></ion-icon>
-      </ion-fab-button>
-   </ion-fab>
-
-   <ion-fab *ngIf="!nivelSeleccionado && mostrarPodio" vertical="top" horizontal="start" slot="fixed">
-    <ion-fab-button (click)="this.mostrarPodio = false" color="warning" size="large">
+  <ion-fab *ngIf="mostrarPodio || this.nivelSeleccionado != '' " vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="volver()" color="warning" size="large">
       <ion-icon name="return-up-back-outline"></ion-icon>
     </ion-fab-button>
- </ion-fab>
+  </ion-fab>
 
-    <ion-fab vertical="top" horizontal="end" slot="fixed">
-      <ion-fab-button (click)="this.firebaseService.logout()" color="danger" size="large">
-        <ion-icon name="log-out"></ion-icon>
-      </ion-fab-button>
-   </ion-fab>
+  <ion-fab vertical="top" horizontal="end" slot="fixed">
+    <ion-fab-button (click)="this.firebaseService.logout()" color="danger" size="large">
+      <ion-icon name="log-out"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
 
-   <div class="Podio" *ngIf="mostrarPodio">
-    <h1> Este es el podio</h1>
-   </div>
+  <ion-content>
+  <div class="Podio" *ngIf="mostrarPodio">
+      <h1 style="margin-top: 2vh;text-align: center;font-family: Comic;">PODIO</h1>
+      <ion-list>
+        <ion-card *ngFor="let puntaje of puntajesMasBajos;let i = index">
+          <ion-card-header style="background-color: lightyellow">
+            <img [src]="imagenesPodio[i % imagenesPodio.length]" />
+          </ion-card-header>
+          <ion-card-content style="text-align: center;">
+            <p><strong> 😎 Usuario </strong>  {{ puntaje.usuario }}</p>
+            <p><strong> 📈 Puntaje:</strong> {{ puntaje.puntaje }}</p>
+            <p><strong> 📆 Fecha:</strong> {{ puntaje.fecha }}</p>
+          </ion-card-content>
+        </ion-card>
+      </ion-list>
+  </div>
+</ion-content>
 
 
   <div *ngIf="!nivelSeleccionado && !mostrarPodio">
@@ -33,7 +44,7 @@
     </div>
   </div>
 
-  <div  class="game" *ngIf="nivelSeleccionado=='facil'">
+  <div class="game" *ngIf="nivelSeleccionado=='facil'">
     <div class="timer">
       Tiempo: {{ tiempoTranscurrido }}
     </div>
@@ -80,5 +91,3 @@
     </ion-grid>
     <br>
   </div>
-
-</ion-content>

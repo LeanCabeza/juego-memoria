@@ -9,6 +9,17 @@ import Swal from 'sweetalert2';
   styleUrls: ['home.page.scss'],
 })
 export class HomePage {
+
+  imagenesPodio = [
+    '/assets/images/god.png',
+    '/assets/images/diamante.png',
+    '/assets/images/oro.png',
+    '/assets/images/plata.png',
+    '/assets/images/bronze.png'
+  ];
+  popSound = new Audio("/assets/sounds/pop.mp3");
+  tadaSound = new Audio("/assets/sounds/ta-da.mp3");
+  failSound = new Audio("/assets/sounds/clang.mp3");
   imagenes: string[] = ['images/1.png', 'images/2.png', 'images/3.png', "images/4.png","images/5.png","images/6.png"];
   cartas: any[] = [];
   cartasSeleccionadas: any[] = [];
@@ -16,18 +27,38 @@ export class HomePage {
   aciertos: number = 0;
   tiempoTranscurrido: number = 0;
   intervalo: any;
-  nivelSeleccionado: string | null = null;
+  nivelSeleccionado: string | null = "";
   columnCount: number = 4;
   btnPodio : boolean = true;
   mostrarPodio: boolean = false;
+  puntajesMasBajos: any[] = [];
+
 
   constructor(public navCtrl: NavController,public firebaseService:FirebaseService) {
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.obtenerPuntajes();
+  }
+
+  async obtenerPuntajes() {
+    try {
+      (await this.firebaseService.obtenerPuntajes()).subscribe(puntajes => {
+        this.puntajesMasBajos = puntajes;
+      });
+    } catch (error) {
+      console.error('Error al obtener puntajes:', error);
+    }
+  }
 
   logout() {
     this.firebaseService.logout();
+  }
+
+  volver(){
+    this.nivelSeleccionado = '';
+    this.mostrarPodio= false;
+    this.detenerTemporizador();
   }
 
   elegirNivel(nivel: string): void {
@@ -82,16 +113,17 @@ export class HomePage {
     if (!this.cartas[index].visible && this.cartasSeleccionadas.length < 2) {
       this.cartas[index].visible = true;
       this.cartasSeleccionadas.push(this.cartas[index]);
-
       if (this.cartasSeleccionadas.length === 2) {
         this.intentos++;
         if (
           this.cartasSeleccionadas[0].imagen === this.cartasSeleccionadas[1].imagen
         ) {
+          this.popSound.play();
           this.aciertos++;
           if (this.aciertos === this.cartas.length / 2) {
+            this.tadaSound.play();
             this.detenerTemporizador();
-
+            this.firebaseService.guardarRegistro(this.tiempoTranscurrido,this.nivelSeleccionado);
             Swal.fire({
               title: 'Juego terminado!',
               text: 'El tiempo que te tomo resolverlo fue ⌛' + this.tiempoTranscurrido + " segundos.",
@@ -115,7 +147,6 @@ export class HomePage {
                   icon: 'success',
                   heightAuto: false,
                 });
-                this.nivelSeleccionado == "";
                 this.nivelSeleccionado = "";
               }
             });
