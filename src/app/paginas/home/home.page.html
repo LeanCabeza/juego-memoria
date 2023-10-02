@@ -1,5 +1,31 @@
 <ion-content>
-  <div *ngIf="!nivelSeleccionado">
+
+  <ion-content>
+
+    <ion-fab *ngIf="!nivelSeleccionado && !mostrarPodio" vertical="top" horizontal="start" slot="fixed">
+      <ion-fab-button (click)="this.mostrarPodio = true" color="success" size="large">
+        <ion-icon name="podium-outline"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
+
+   <ion-fab *ngIf="!nivelSeleccionado && mostrarPodio" vertical="top" horizontal="start" slot="fixed">
+    <ion-fab-button (click)="this.mostrarPodio = false" color="warning" size="large">
+      <ion-icon name="return-up-back-outline"></ion-icon>
+    </ion-fab-button>
+ </ion-fab>
+
+    <ion-fab vertical="top" horizontal="end" slot="fixed">
+      <ion-fab-button (click)="this.firebaseService.logout()" color="danger" size="large">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-fab-button>
+   </ion-fab>
+
+   <div class="Podio" *ngIf="mostrarPodio">
+    <h1> Este es el podio</h1>
+   </div>
+
+
+  <div *ngIf="!nivelSeleccionado && !mostrarPodio">
     <div class="level-buttons">
       <button (click)="elegirNivel('facil')">Fácil</button>
       <button (click)="elegirNivel('medio')">Medio</button>

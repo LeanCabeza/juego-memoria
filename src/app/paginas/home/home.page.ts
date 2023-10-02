@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController } from '@ionic/angular';
+import { FirebaseService } from 'src/app/services/firebase.service';
 import Swal from 'sweetalert2';
 
 @Component({
@@ -17,11 +18,17 @@ export class HomePage {
   intervalo: any;
   nivelSeleccionado: string | null = null;
   columnCount: number = 4;
+  btnPodio : boolean = true;
+  mostrarPodio: boolean = false;
 
-  constructor(public navCtrl: NavController,) {
+  constructor(public navCtrl: NavController,public firebaseService:FirebaseService) {
   }
 
   ngOnInit() {}
+
+  logout() {
+    this.firebaseService.logout();
+  }
 
   elegirNivel(nivel: string): void {
     this.nivelSeleccionado = nivel;
@@ -136,4 +143,5 @@ export class HomePage {
   detenerTemporizador() {
     clearInterval(this.intervalo);
   }
+
 }

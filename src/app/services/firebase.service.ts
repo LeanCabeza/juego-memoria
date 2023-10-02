@@ -53,17 +53,33 @@ export class FirebaseService {
     }
 
     async logout() {
-      this.auth.signOut();
-      localStorage.removeItem("correo"); 
-      localStorage.removeItem("password"); 
-      this.navCtrl.navigateRoot('/login'); 
 
       Swal.fire({
-        title: 'Saliste con exito',
-        text: "Hasta pronto",
-        icon: 'success',
-        heightAuto: false
-      });
-     }
+        title: 'Estas seguro de que queres salir?',
+        text: "No hay vuelta atras eh!",
+        icon: 'warning',
+        heightAuto: false,
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, deseo salir'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          try {
+            this.auth.signOut();
+            localStorage.removeItem("correo"); 
+            this.navCtrl.navigateRoot('/login'); 
+          } catch (error) {
+            console.error('Error al cerrar sesión:', error);
+          }
+          Swal.fire({
+            title: 'Saliste con exito',
+            text: "Hasta pronto",
+            icon: 'success',
+            heightAuto: false
+          });
+        }
+      })
+    }
     
   }
