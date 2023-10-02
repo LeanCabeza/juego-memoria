@@ -33,11 +33,11 @@ export class HomePage {
     let imagenes: string[] = [];
 
     if (this.nivelSeleccionado === 'facil') {
-      imagenes = ['images/1.png', 'images/2.png', 'images/3.png'];
+      imagenes = ['images/animal_1.png', 'images/animal_2.png', 'images/animal_3.png'];
     } else if (this.nivelSeleccionado === 'medio') {
-      imagenes = ['images/1.png', 'images/2.png', 'images/3.png','images/4.png', 'images/5.png'];
+      imagenes = ['images/herramienta_1.png', 'images/herramienta_2.png', 'images/herramienta_3.png','images/herramienta_4.png', 'images/herramienta_5.png'];
     } else if (this.nivelSeleccionado === 'dificil') {
-      imagenes = ['images/1.png', 'images/2.png', 'images/3.png','images/4.png', 'images/5.png', 'images/6.png','images/7.png','images/8.png'];
+      imagenes = ['images/frutas_ (1).png', 'images/frutas_ (2).png', 'images/frutas_ (3).png','images/frutas_ (4).png', 'images/frutas_ (5).png', 'images/frutas_ (6).png','images/frutas_ (7).png','images/frutas_ (8).png'];
     }
 
     this.cartas = this.duplicarCartas(imagenes);
@@ -87,13 +87,13 @@ export class HomePage {
 
             Swal.fire({
               title: 'Juego terminado!',
-              text: 'El tiempo que te tomo resolverlo fue ⌛ ' + this.tiempoTranscurrido + " segundos.",
+              text: 'El tiempo que te tomo resolverlo fue ⌛' + this.tiempoTranscurrido + " segundos.",
               icon: 'success',
               heightAuto: false,
               showCancelButton: true,
               confirmButtonColor: 'green',
               cancelButtonColor: '#d33',
-              confirmButtonText: 'Jugar Nuevamente?',
+              confirmButtonText: 'Jugar Nuevamente',
             }).then((result) => {
               if (result.isConfirmed) {
                 this.iniciarJuego();
