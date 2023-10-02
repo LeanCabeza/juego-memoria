@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +18,7 @@ export class HomePage {
   nivelSeleccionado: string | null = null;
   columnCount: number = 4;
 
-  constructor() {
-    // Iniciar el temporizador al cargar la página
-    this.iniciarTemporizador();
+  constructor(public navCtrl: NavController,) {
   }
 
   ngOnInit() {}
@@ -29,7 +29,7 @@ export class HomePage {
   }
 
   iniciarJuego(): void {
-    // Define los arrays de imágenes según el nivel seleccionado
+    this.iniciarTemporizador();
     let imagenes: string[] = [];
 
     if (this.nivelSeleccionado === 'facil') {
@@ -40,12 +40,8 @@ export class HomePage {
       imagenes = ['images/1.png', 'images/2.png', 'images/3.png','images/4.png', 'images/5.png', 'images/6.png','images/7.png','images/8.png'];
     }
 
-    // Llenar el array de cartas duplicando las imágenes
     this.cartas = this.duplicarCartas(imagenes);
-    // Barajar las cartas
     this.shuffle(this.cartas);
-
-    // Reiniciar variables de juego
     this.intentos = 0;
     this.aciertos = 0;
     this.tiempoTranscurrido = 0;
@@ -87,9 +83,36 @@ export class HomePage {
         ) {
           this.aciertos++;
           if (this.aciertos === this.cartas.length / 2) {
-            // El juego ha terminado, aquí puedes guardar el tiempo y la fecha en la base de datos.
             this.detenerTemporizador();
-            console.log('Juego terminado. Tiempo: ' + this.tiempoTranscurrido);
+
+            Swal.fire({
+              title: 'Juego terminado!',
+              text: 'El tiempo que te tomo resolverlo fue ⌛ ' + this.tiempoTranscurrido + " segundos.",
+              icon: 'success',
+              heightAuto: false,
+              showCancelButton: true,
+              confirmButtonColor: 'green',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Jugar Nuevamente?',
+            }).then((result) => {
+              if (result.isConfirmed) {
+                this.iniciarJuego();
+                Swal.fire({
+                  title: 'Comenzando nuevamente...',
+                  icon: 'success',
+                  heightAuto: false,
+                });
+              }else{
+                Swal.fire({
+                  title: 'Redireccionado al menu...',
+                  icon: 'success',
+                  heightAuto: false,
+                });
+                this.nivelSeleccionado == "";
+                this.nivelSeleccionado = "";
+              }
+            });
+
           }
           this.cartasSeleccionadas = []; // Reiniciar la selección de cartas
         } else {

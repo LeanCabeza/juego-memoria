@@ -7,7 +7,7 @@
     </div>
   </div>
 
-  <div *ngIf="nivelSeleccionado=='facil'">
+  <div  class="game" *ngIf="nivelSeleccionado=='facil'">
     <div class="timer">
       Tiempo: {{ tiempoTranscurrido }}
     </div>
@@ -22,7 +22,7 @@
     </ion-grid>
   </div>
 
-  <div *ngIf="nivelSeleccionado=='medio'">
+  <div class="game" *ngIf="nivelSeleccionado=='medio'">
     <div class="timer">
       Tiempo: {{ tiempoTranscurrido }}
     </div>
@@ -37,8 +37,7 @@
     </ion-grid>
   </div>
 
-  
-  <div *ngIf="nivelSeleccionado=='dificil'">
+  <div class="game" *ngIf="nivelSeleccionado=='dificil'">
     <div class="timer">
       Tiempo: {{ tiempoTranscurrido }}
     </div>

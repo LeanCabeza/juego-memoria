@@ -46,11 +46,18 @@
     }
   }
   
+  .game{
+    background-image: url('/assets/images/background.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center center;
+  }
   
   .timer {
     text-align: center;
-    font-size: 24px;
-    margin-top: 20px;
+    font-size: 30px;
+    font-family: "Comic";
+    font-size: 30px;
   }
 
 
@@ -67,8 +74,11 @@
   }
   
 .level-buttons button {
+  font-size: 70px;
+  opacity: 0.8;
+  font-family: "Comic";
   border-radius: 30px;
-  border: 2px solid greenyellow;
+  border: 2px solid yellow;
   height: 30vh;
   width: 85%;
   margin-bottom: 16px;
