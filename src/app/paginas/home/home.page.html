@@ -1,27 +1,56 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>
-      Escáner de Código de Barras
-    </ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-  <!-- Agregar un botón para iniciar el escáner -->
-  <ion-button [disabled]="isScanning" (click)="startScanner()">Iniciar Escáner</ion-button>
+  <div *ngIf="!nivelSeleccionado">
+    <div class="level-buttons">
+      <button (click)="elegirNivel('facil')">Fácil</button>
+      <button (click)="elegirNivel('medio')">Medio</button>
+      <button (click)="elegirNivel('dificil')">Difícil</button>
+    </div>
+  </div>
 
-  <!-- Agregar un elemento para la vista previa de la cámara -->
-  <div id="preview" *ngIf="isScanning"></div>
+  <div *ngIf="nivelSeleccionado=='facil'">
+    <div class="timer">
+      Tiempo: {{ tiempoTranscurrido }}
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let carta of cartas; let i = index">
+          <ion-card class="facil" [ngClass]="{ 'carta-visible': carta.visible }" (click)="seleccionarCarta(i)">
+            <ion-img [src]="carta.visible ? '/assets/' + carta.imagen : '/assets/images/pregunta.png'"></ion-img>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
-  <ion-card *ngIf="qrContent !== 'Vacio'">
-    <ion-card-content>
-      <h1>{{ qrContent }}</h1>
-    </ion-card-content>
-  </ion-card>
+  <div *ngIf="nivelSeleccionado=='medio'">
+    <div class="timer">
+      Tiempo: {{ tiempoTranscurrido }}
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let carta of cartas; let i = index">
+          <ion-card class="medio" [ngClass]="{ 'carta-visible': carta.visible }" (click)="seleccionarCarta(i)">
+            <ion-img [src]="carta.visible ? '/assets/' + carta.imagen : '/assets/images/pregunta.png'"></ion-img>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
 
-  <ion-card *ngIf="isScanning">
-    <ion-card-content>
-      Escaneando...
-    </ion-card-content>
-  </ion-card>
+  
+  <div *ngIf="nivelSeleccionado=='dificil'">
+    <div class="timer">
+      Tiempo: {{ tiempoTranscurrido }}
+    </div>
+    <ion-grid>
+      <ion-row>
+        <ion-col size="6" *ngFor="let carta of cartas; let i = index">
+          <ion-card class="dificil" [ngClass]="{ 'carta-visible': carta.visible }" (click)="seleccionarCarta(i)">
+            <ion-img [src]="carta.visible ? '/assets/' + carta.imagen : '/assets/images/pregunta.png'"></ion-img>
+          </ion-card>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+  </div>
+
 </ion-content>
