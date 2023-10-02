@@ -2,9 +2,9 @@
     --overflow: hidden !important;
     --overscroll-behavior-y: none !important;
     --display: flex;
-    --background: black;
-    //--background: linear-gradient(0deg, rgba(131,58,180,1) 0%, rgba(156,131,173,1) 50%, rgba(190,180,198,1) 100%);
-}
+    --background: rgb(245,246,204);
+    --background: radial-gradient(circle, rgba(245,246,204,1) 0%, rgba(253,187,45,1) 100%);  
+  }
 
 ion-fab-button{
   height: 60px;
@@ -12,14 +12,14 @@ ion-fab-button{
 }
 
   ion-fab-button::part(native) {
-    background-color: rgba(209, 143, 240, 0.568);
+    background-color: white;
     border-radius: 35px;
     box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.3), 0px 1px 3px 1px rgba(0, 0, 0, 0.15);
-    color: black;
+    color: blue;
   }
   
   ion-fab-button::part(native):hover::after {
-    background-color: rgb(153, 140, 162);
+    background-color: white;
   }
   
   ion-fab-button::part(native):active::after {
@@ -43,8 +43,8 @@ ion-fab-button{
     position: fixed;
     margin-top: 50px;
     box-shadow: 2px 40px 50px rgba(1, 1, 1, 0.5);
-    background: rgb(56,55,55);
-    background: linear-gradient(180deg, rgba(56,55,55,1) 6%, rgba(0,0,0,1) 52%, rgba(0,0,0,1) 70%);
+    background: rgb(245,246,204);
+    background: radial-gradient(circle, rgba(245,246,204,1) 0%, rgba(253,187,45,1) 100%);
   }
   
   ion-card-content {
@@ -95,7 +95,7 @@ ion-fab-button{
   .custom-fab-inicio {
     margin-top: 80px;
   }
-  
+
   //SPINNER
   @keyframes rotate-center {
     0% {
@@ -130,4 +130,9 @@ ion-fab-button{
     background-repeat: no-repeat;
     background-size: 150px;
     background-position: center;
+  }
+
+  ion-input{
+    font-family: "Comic";
+    font-size: 25px;
   }
