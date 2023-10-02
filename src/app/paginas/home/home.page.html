@@ -1,13 +1,27 @@
-<ion-header [translucent]="true">
+<ion-header>
   <ion-toolbar>
-    <ion-title>home</ion-title>
+    <ion-title>
+      Escáner de Código de Barras
+    </ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">home</ion-title>
-    </ion-toolbar>
-  </ion-header>
+<ion-content>
+  <!-- Agregar un botón para iniciar el escáner -->
+  <ion-button [disabled]="isScanning" (click)="startScanner()">Iniciar Escáner</ion-button>
+
+  <!-- Agregar un elemento para la vista previa de la cámara -->
+  <div id="preview" *ngIf="isScanning"></div>
+
+  <ion-card *ngIf="qrContent !== 'Vacio'">
+    <ion-card-content>
+      <h1>{{ qrContent }}</h1>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card *ngIf="isScanning">
+    <ion-card-content>
+      Escaneando...
+    </ion-card-content>
+  </ion-card>
 </ion-content>

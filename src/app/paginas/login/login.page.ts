@@ -36,7 +36,7 @@ export class LoginPage implements OnInit {
     let password;
 
     switch (boton) {
-      case 1:
+      case 3:
         correo = "admin@admin.com";
         password = "111111";
         break;
@@ -44,7 +44,7 @@ export class LoginPage implements OnInit {
         correo = "usuario@usuario.com";
         password = "333333";
         break;
-      case 3:
+      case 1:
         correo = "invitado@invitado.com";
         password = "222222";
         break;
