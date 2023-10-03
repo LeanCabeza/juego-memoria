@@ -108,7 +108,7 @@ export class FirebaseService {
 
     async obtenerPuntajes() {
       try {
-        return this.firestore.collection("puntajes", ref => ref.orderBy('puntaje', 'asc')).snapshotChanges().pipe(
+        return this.firestore.collection("puntajes", ref => ref.orderBy('puntaje', 'asc').limit(5)).snapshotChanges().pipe(
           map(actions => {
             return actions.map(a => {
               const data = a.payload.doc.data();
