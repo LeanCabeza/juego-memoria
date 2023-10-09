@@ -32,9 +32,8 @@
       <ion-card-content>
         <form (submit)="Login()">
           <ion-item class="ion-item">
-            <ion-icon name="person" class="icon-login"></ion-icon>
-            <ion-input class="ionput" aria-label="Correo" [formControl]="correo" [clearOnEdit]="true" type="email"
-              required placeholder="Correo" errorText="Correo invalido" helperText="Ingrese un correo valido"
+            <ion-input class="ionput" aria-label="📩 Correo" [formControl]="correo" [clearOnEdit]="true" type="email"
+              required placeholder="📩 Correo" errorText="Correo invalido" helperText="Ingrese un correo valido"
               full></ion-input>
           </ion-item>
           <div class="alert alert-danger mensajeError mt-1 bi bi-exclamation-octagon-fill"
@@ -52,9 +51,8 @@
           <img class="gif" style="height: 300px;" src="/assets/images/login.png"/>
 
           <ion-item class="ion-item">
-            <ion-icon name="key" class="icon-login"></ion-icon>
             <ion-input class="ionput"  [formControl]="password" aria-label="Contraseña" [clearOnEdit]="true" type="password" required
-              placeholder="Contraseña" [counter]="true" maxlength="8"
+              placeholder="🔑 Contraseña" [counter]="true" maxlength="8"
               errorText="Contraseña incorrecta" full></ion-input>
           </ion-item>
           
