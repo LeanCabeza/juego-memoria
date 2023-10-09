@@ -38,12 +38,13 @@ export class HomePage {
   }
 
   ngOnInit() {
-    this.obtenerPuntajes();
+    this.obtenerPuntajes("facil");
   }
 
-  async obtenerPuntajes() {
+
+  async obtenerPuntajes(dificultad: string) {
     try {
-      (await this.firebaseService.obtenerPuntajes()).subscribe(puntajes => {
+      (await this.firebaseService.obtenerPuntajes(dificultad)).subscribe(puntajes => {
         this.puntajesMasBajos = puntajes;
       });
     } catch (error) {

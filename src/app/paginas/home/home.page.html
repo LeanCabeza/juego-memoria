@@ -20,6 +20,17 @@
   <ion-content>
   <div class="Podio" *ngIf="mostrarPodio">
       <h1 style="margin-top: 2vh;text-align: center;font-family: Comic;">PODIO</h1>
+      <ion-segment value="default">
+        <ion-segment-button (click)="obtenerPuntajes('facil')">
+          <ion-label>Facil</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="obtenerPuntajes('medio')">
+          <ion-label>Medio</ion-label>
+        </ion-segment-button>
+        <ion-segment-button (click)="obtenerPuntajes('dificil')">
+          <ion-label>Dificil</ion-label>
+        </ion-segment-button>
+      </ion-segment>
       <ion-list>
         <ion-card *ngFor="let puntaje of puntajesMasBajos;let i = index">
           <ion-card-header style="background-color: lightyellow">
