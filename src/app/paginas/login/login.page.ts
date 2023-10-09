@@ -15,12 +15,15 @@ export class LoginPage implements OnInit {
   correo: FormControl = new FormControl('', [Validators.required, Validators.email]);
   password: FormControl = new FormControl('', [Validators.required, Validators.minLength(6)]);
   showSpinner:boolean = false;
+  customLabels = ["admin", "usuario", "invitado", "Otra etiqueta"];
+
 
   constructor(private firebaseService:FirebaseService) { }
 
   ngOnInit() {
   }
-  
+
+
   Login() {
     const correoL = this.correo.value?.toString()
     const passL = this.password.value?.toString()
@@ -31,11 +34,12 @@ export class LoginPage implements OnInit {
     }, 2000);
   }
 
+
   CargaUsuarios(boton: any) {
     let correo;
     let password;
 
-    switch (boton) {
+    switch (boton.detail.value) {
       case 3:
         correo = "admin@admin.com";
         password = "111111";

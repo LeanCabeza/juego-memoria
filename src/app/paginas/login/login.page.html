@@ -1,31 +1,34 @@
 <div class="main">
   <ion-content [fullscreen]="true" overflow-scroll="false" class="contenedor">
-  
-    <ion-content class="ion-padding">
-      <ion-fab slot="fixed" vertical="top" horizontal="start">
-        <ion-fab-button>
-          <ion-icon name="chevron-forward-circle"></ion-icon>
+    <div class="button-container">
+      <ion-fab class="custom-fab-inicio" horizontal="start">
+        <ion-fab-button color="tertiary">
+          <img src="/assets/images/user1.png">
         </ion-fab-button>
-        <ion-fab-list side="end">
-          <ion-fab-button>
-            <ion-fab-button color="tertiary" (click)="CargaUsuarios(3)">
-              <img src="/assets/images/user3.png">
-            </ion-fab-button>
-          </ion-fab-button>
-          <ion-fab-button>
-            <ion-fab-button (click)="CargaUsuarios(2)">
-              <img src="/assets/images/user2.png" alt="">
-            </ion-fab-button>
-          </ion-fab-button>
-          <ion-fab-button>
-            <ion-fab-button (click)="CargaUsuarios(1)">
-              <img src="/assets/images/user1.png" alt="">
-            </ion-fab-button>
-          </ion-fab-button>
-        </ion-fab-list>
       </ion-fab>
-    </ion-content>
-    <ion-card class="card" style="margin-top: 28%;">
+      <ion-fab class="custom-fab-medio" horizontal="center">
+        <ion-fab-button>
+          <img src="/assets/images/user2.png" alt="">
+        </ion-fab-button>
+      </ion-fab>
+      <ion-fab class="custom-fab-final" horizontal="end">
+        <ion-fab-button>
+          <img src="/assets/images/user3.png" alt="">
+        </ion-fab-button>
+      </ion-fab>
+    </div>
+    <ion-range style="margin-top:35px;margin-left:35px; margin-right: 35px;margin-bottom: 0px;"
+    aria-label="Custom range"
+    [min]="0"
+    [max]="3"
+    [pin]="true"
+    [ticks]="true"
+    [snaps]="true"
+    (ionChange)="CargaUsuarios($event)"
+  >
+  </ion-range>
+
+  <ion-card class="card" style="margin-top: 5%;">
       <ion-card-content>
         <form (submit)="Login()">
           <ion-item class="ion-item">
@@ -46,13 +49,15 @@
             </span>
           </div>
           <br>
+          <img class="gif" style="height: 300px;" src="/assets/images/login.png"/>
+
           <ion-item class="ion-item">
             <ion-icon name="key" class="icon-login"></ion-icon>
             <ion-input class="ionput"  [formControl]="password" aria-label="Contraseña" [clearOnEdit]="true" type="password" required
               placeholder="Contraseña" [counter]="true" maxlength="8"
               errorText="Contraseña incorrecta" full></ion-input>
           </ion-item>
-  
+          
           <div class="alert alert-danger mensajeError mt-1 bi bi-exclamation-octagon-fill"
             [hidden]="password.valid || (password.pristine && password.untouched)">
   
@@ -72,8 +77,6 @@
   
         </form>
       </ion-card-content>
-      <img class="gif" src="/assets/images/login.png"/>
-
     </ion-card>
     
     <div *ngIf="showSpinner" class="custom-spinner">
